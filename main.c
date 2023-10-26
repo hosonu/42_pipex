@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/26 12:32:58 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/10/26 15:15:06 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[], char *envp[])
         printf("ouput error\n");
         return 0;
     }
-    program = ft_strjoin(path, argv[1]);
+    program = ft_strjoin(path, argv[2]);
     if (execve(program, args, NULL) == -1) {
         perror("execve"); 
     }
