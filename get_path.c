@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/26 12:31:29 by hosonu           ###   ########.fr       */
+/*   Created: 2023/10/26 12:00:28 by hosonu            #+#    #+#             */
+/*   Updated: 2023/10/26 12:28:39 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main(int argc, char *argv[], char *envp[])
+char *get_path(char *envp[])
 {
-    char *program;
-    char *args[] = {get_path(envp), argv[2], NULL};
-    
-    if(argc <= 1)
+    int i = 0;
+    char **path;
+    char *path_to_bin;
+
+    while(envp[i] != NULL)
     {
-        printf("ouput error\n");
-        return 0;
+        if(ft_strncmp(envp[i], "PATH=", 5) == 0)
+        {
+            path = ft_split(envp[i], ':');
+            path_to_bin = ft_strjoin(path[5], "/");
+            return path_to_bin;
+        }
+        i++;
     }
-    program = ft_strjoin(get_path(envp), argv[1]);
-    if (execve(program, args, NULL) == -1) {
-        perror("execve"); 
-    }
-    return 0;
+    return NULL;
 }
