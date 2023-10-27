@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:00:28 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/26 17:46:14 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/27 16:54:55 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+//PATHを取得する
 char	*get_path(char *envp[])
 {
 	int		i;
@@ -38,12 +39,15 @@ char	*get_path(char *envp[])
 	return (NULL);
 }
 
-void get_comand(char *comand)
+//comanndo を分割して、comand1とoption1に格納する
+void get_comand(char *comand, t_line *input)
 {
-    t_list *input;
+	char **comand_line;
     
-    input = malloc(sizeof(t_list));
-    if(input == NULL)
-        return ;
-    input->comand1 = ft_split(comand , "");
+	if(comand != NULL)
+	{
+		comand_line = ft_split(comand, ' ');
+		input->comand1 = comand_line[0];
+		input->option1 = comand_line[1];
+	}
 }
