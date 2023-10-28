@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/27 20:41:12 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/28 11:22:14 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-    // char *program;
-    t_line *input;
-    input = malloc(sizeof(t_list));
-    if(input == NULL)
-        return 0;
-    get_comand(argv[1] , input);
-    char *path = get_path(envp, input);
-    printf("%s\n", path);
-    // char *args[] = {path, input->option1, NULL};
-    // if(argc <= 1)
-    // {
-    //     printf("ouput error\n");
-    //     return 0;
-    // }
-    // program = ft_strjoin(path, input->comand1);
-    // if (execve(program, args, NULL) == -1) {
-    //     perror("execve"); 
-    // }
-    return 0;
-}
+    t_pipex *pipex;
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q a.out");
+    pipex = (t_pipex *)malloc(sizeof(t_pipex));
+    if (argc != 3)
+    {
+        printf("Error\n");
+        return (0);
+    }
+    if(pipe(pipex->pp) == -1)
+    {
+        printf("Error\n");
+        return (0);
+    }
+    pipex->pid1 = fork();
+    if(pipex->pid1 == 0)
+        comand_one(pipex, argv, envp);
+    pipex->pid2 = fork();
+    if(pipex->pid2 == 0)
+        comand_two(pipex, argv, envp);
+    close(pipex->pp[0]);
+    close(pipex->pp[1]);
+    waitpid(pipex->pid1, NULL, 0);
+    waitpid(pipex->pid2, NULL, 0);
+    return (0);
 }
