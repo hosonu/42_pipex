@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/28 18:15:01 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/28 19:02:49 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pipex == NULL)
 		return (0);
 	if (argc != 5)
+	{
+		perror("argc");
 		exit(EX_USAGE);
+	}
 	open_file(pipex, argv);
 	pipex->pid1 = fork();
 	if (pipex->pid1 == 0)
