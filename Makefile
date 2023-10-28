@@ -1,19 +1,18 @@
-NAME = pipex.a
+NAME = pipex
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = get_path.c 
+FILES = main.c comands.c libft/ft_split.c libft/ft_strjoin.c libft/ft_strncmp.c libft/ft_strlcat.c libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_substr.c libft/ft_strdup.c
 SRCS = $(FILES)
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
-	cd libft && $(MAKE)
-
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+all: $(NAME)
 
 clean:
-	rm -f $(OBJS) && cd libft && $(MAKE) clean
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
