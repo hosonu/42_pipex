@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:53:07 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/27 19:25:52 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/28 20:27:41 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list *next;
+	t_list	*next;
 
-	if (!*lst)
+	if (!lst || !del || !*lst)
 		return ;
 	while (*lst)
 	{

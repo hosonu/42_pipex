@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:01:12 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/22 15:35:21 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:19:21 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*ft_strchr(const char *s, int c)
 	str = (char *)s;
 	while (*str)
 	{
-		if (*str == (char )c)
+		if (*str == (char)c)
 			return (str);
 		str++;
 	}
 	if (c == '\0')
 		return (str);
-	return (0);
+	return (NULL);
 }

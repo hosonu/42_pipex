@@ -6,15 +6,15 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 11:07:30 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/25 11:20:34 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/26 22:17:02 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-    if(s == NULL)
-        return ;
-    write(fd, s, ft_strlen(s));
+	if (s == NULL)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

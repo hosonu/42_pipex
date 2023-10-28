@@ -2,22 +2,19 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+
-	+:+     */
-/*   By: hoyuki <hoyuki@student.42tokyo.jp>         +#+  +:+
-	+#+        */
-/*                                                +#+#+#+#+#+
-	+#+           */
-/*   Created: 2023/09/20 15:56:12 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/20 15:56:12 by hoyuki           ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/26 22:23:07 by hoyuki            #+#    #+#             */
+/*   Updated: 2023/09/26 22:23:07 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static long	ft_validate_long(const char *str, long long sign)
+static long long	ft_validate_long(const char *str, long long sign)
 {
-	long long nb;
+	long long	nb;
 
 	nb = 0;
 	while (*str && (ft_isdigit(*str)))
@@ -34,7 +31,7 @@ static long	ft_validate_long(const char *str, long long sign)
 
 int	ft_atoi(const char *str)
 {
-	long long sign;
+	long long	sign;
 
 	sign = 1;
 	while (*str == ' ' || (9 <= *str && *str <= 13))
@@ -45,5 +42,5 @@ int	ft_atoi(const char *str)
 			sign *= -1;
 		str++;
 	}
-	return (int)(ft_validate_long(str, sign));
+	return ((int)(ft_validate_long(str, sign)));
 }

@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 23:38:40 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/25 14:49:40 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 12:10:28 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	get_digits(int n)
 char	*ft_itoa(int n)
 {
 	long long	nb;
-	int			digits;
 	char		*str;
+	int			digits;
 	int			i;
 
 	nb = n;
@@ -53,13 +53,3 @@ char	*ft_itoa(int n)
 	str[digits + (n <= 0)] = '\0';
 	return (str);
 }
-
-// #include <string.h>
-// int main(void)
-// {
-//     char *p;
-//     p = ft_itoa(-5859);
-// 	printf("strlen: %lu\n",strlen(p));
-//     printf("p: %s\n", p);
-//     return (0);
-// }

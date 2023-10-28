@@ -2,14 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
-	+:+     */
-/*   By: hoyuki <hoyuki@student.42tokyo.jp>         +#+  +:+      
-	+#+        */
-/*                                                +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2023/09/20 15:56:41 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/20 15:56:41 by hoyuki           ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/26 22:15:54 by hoyuki            #+#    #+#             */
+/*   Updated: 2023/09/26 22:15:54 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +14,11 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char *d;
-	unsigned char *s;
+	unsigned char	*d;
+	unsigned char	*s;
 
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
-
 	if (!dest && !src)
 		return (NULL);
 	while (n--)

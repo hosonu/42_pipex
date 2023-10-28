@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:01:40 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/25 16:13:42 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 12:26:26 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	size_t	i;
 
 	srclen = ft_strlen(src);
-	if (dst == ((void *)0) && dstsize == 0)
+	if (dst == NULL && dstsize == 0)
 		return (srclen);
 	dstlen = ft_strlen(dst);
 	if (dstsize == 0 || dstlen >= dstsize)

@@ -6,12 +6,11 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:04:15 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/27 14:17:51 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 17:56:33 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include<stdio.h>
 
 static size_t	separator(char s, char sep)
 {

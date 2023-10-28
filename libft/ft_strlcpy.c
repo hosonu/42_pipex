@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:01:53 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/27 14:37:35 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:37:02 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	dst[i] = '\0';
 	return (srclen);
 }
-
-// int	main(void)
-// {
-// 	char	dest[20];
-
-// 	char src[] = "Hello, World!";
-// 	ft_strlcpy(dest, src, sizeof(dest));
-// 	printf("%s\n", dest);
-// 	return (0);
-// }

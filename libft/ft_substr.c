@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 20:21:35 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/26 16:48:08 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 15:06:50 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	len_s = ft_strlen(s);
 	if (len_s < start)
 		return (ft_strdup(""));
-	if (len_s > start + len)
+	if (len_s - start > len)
 		p = (char *)malloc(sizeof(char) * (len + 1));
 	else
 		p = (char *)malloc(sizeof(char) * (len_s - start + 1));

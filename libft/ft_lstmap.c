@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:06:17 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/26 19:11:06 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:28:30 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new_elem;
 
 	if (!lst || !f || !del)
-		return (NULL); 
+		return (NULL);
 	new_lst = NULL;
 	while (lst)
 	{

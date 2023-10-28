@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:09:28 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/20 18:15:00 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/26 22:13:18 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-    unsigned char *str;
-    str = (unsigned char *)s;
+	unsigned char	*str;
 
-    while(n--)
-    {
-        *str = '\0';
-        str++;
-    }
+	str = (unsigned char *)s;
+	while (n--)
+	{
+		*str = '\0';
+		str++;
+	}
 }
-

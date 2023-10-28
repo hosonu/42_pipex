@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:45:39 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/25 13:13:06 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/09/27 20:17:59 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_str(char *p, char const *s1, size_t i, size_t j)
 	return (p);
 }
 
-static int	get_start(char const *s1, char const *set)
+static size_t	get_start(char const *s1, char const *set)
 {
 	size_t	i;
 
@@ -44,11 +44,13 @@ static int	get_start(char const *s1, char const *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*p;
-	size_t		start;
+	size_t	start;
 	size_t	end;
 
-	if (s1 == NULL || set == NULL)
+	if (s1 == NULL)
 		return (NULL);
+	if (set == NULL || *set == '\0')
+		return (ft_strdup(s1));
 	end = ft_strlen(s1);
 	start = get_start(s1, set);
 	while (s1[end - 1] != '\0')
@@ -57,14 +59,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 			break ;
 		end--;
 	}
-    if(start >= end)
-	{
-        return (ft_strdup(""));
-	}
+	if (start >= end)
+		return (ft_strdup(""));
 	p = (char *)malloc(sizeof(char) * (end - start + 1));
 	if (p == NULL)
 		return (NULL);
 	p = get_str(p, s1, start, end);
 	return (p);
 }
-

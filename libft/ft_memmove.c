@@ -2,14 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+
-	+:+     */
-/*   By: hoyuki <hoyuki@student.42tokyo.jp>         +#+  +:+
-	+#+        */
-/*                                                +#+#+#+#+#+
-	+#+           */
-/*   Created: 2023/09/20 16:00:11 by hoyuki            #+#    #+#             */
-/*   Updated: 2023/09/20 16:00:11 by hoyuki           ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/26 22:16:15 by hoyuki            #+#    #+#             */
+/*   Updated: 2023/09/26 22:16:15 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +14,24 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char *d;
-	unsigned char *tmp;
+	unsigned char	*d;
+	unsigned char	*s;
 
 	d = (unsigned char *)dest;
-	tmp = (unsigned char *)src;
-	if (!d && !tmp)
+	s = (unsigned char *)src;
+	if (!d && !s)
 		return (NULL);
 	if (dest <= src)
 	{
 		while (n--)
-			*d++ = *tmp++;
+			*d++ = *s++;
 	}
 	else
 	{
 		d += n;
-		tmp += n;
-
+		s += n;
 		while (n--)
-			*--d = *--tmp;
+			*--d = *--s;
 	}
 	return (dest);
 }
