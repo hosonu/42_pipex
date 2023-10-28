@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/28 17:55:46 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/28 18:22:10 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*get_path(char *envp[], t_pipex *pipex)
 {
-	int	i;
+	int		i;
 	char	**path;
-	
+
 	pipex->comand = ft_split(pipex->in_comand, ' ');
 	i = 0;
 	while (envp[i] != NULL)
@@ -29,8 +29,8 @@ char	*get_path(char *envp[], t_pipex *pipex)
 			{
 				path[i] = ft_strjoin(path[i], "/");
 				path[i] = ft_strjoin(path[i], pipex->comand[0]);
-				if(access(path[i], X_OK) == 0)
-					return path[i];
+				if (access(path[i], X_OK) == 0)
+					return (path[i]);
 				free(path[i]);
 				i++;
 			}
@@ -46,12 +46,12 @@ void	comand_one(t_pipex *pipex, char *argv[], char *envp[])
 
 	close(pipex->pp[0]);
 	dup2(pipex->pp[1], 1);
-    dup2(pipex->file_one, 0);
+	dup2(pipex->file_one, 0);
 	pipex->in_comand = argv[2];
 	path = get_path(envp, pipex);
 	if (path == NULL)
 	{
-        perror("path");
+		perror("path");
 		exit(0);
 	}
 	execve(path, pipex->comand, envp);
@@ -63,7 +63,7 @@ void	comand_two(t_pipex *pipex, char *argv[], char *envp[])
 
 	close(pipex->pp[1]);
 	dup2(pipex->pp[0], 0);
-    dup2(pipex->file_two, 1);
+	dup2(pipex->file_two, 1);
 	pipex->in_comand = argv[3];
 	path = get_path(envp, pipex);
 	if (path == NULL)
