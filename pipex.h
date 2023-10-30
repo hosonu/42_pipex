@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/28 17:34:24 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/30 13:00:15 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <sysexits.h>
+# include <errno.h>
 # include <unistd.h>
 
 typedef struct s_pipex

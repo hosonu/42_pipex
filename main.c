@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/28 19:02:49 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/10/30 13:03:33 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	open_file(t_pipex *pipex, char *argv[])
 	pipex->file_one = open(argv[1], O_RDONLY);
 	if (pipex->file_one == -1)
 	{
-		perror("zsh");
-		exit(EX_OSFILE);
+		perror(argv[1]);
+		exit(EXIT_FAILURE);
 	}
 	pipex->file_two = open(argv[4], O_TRUNC | O_CREAT | O_RDWR);
 	if (pipe(pipex->pp) == -1)
 	{
 		perror("file");
-		exit(EX_OSFILE);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -37,8 +37,10 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	if (argc != 5)
 	{
+		errno = EINVAL;
 		perror("argc");
-		exit(EX_USAGE);
+		exit(EXIT_FAILURE);
+
 	}
 	open_file(pipex, argv);
 	pipex->pid1 = fork();
