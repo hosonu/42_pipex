@@ -1,6 +1,6 @@
 NAME = pipex
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 FILES = main.c comands.c \
 		libft/ft_split.c \
