@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/03 20:48:58 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/04 01:16:43 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,22 @@ typedef struct s_pipex
 {
 	int		pp[2];
 	int		pid;
-	int		pid1;
-	int		pid2;
-	int		file_one;
-	int		file_two;
+	int		infile;
+	int		outfile;
 	int 	pcnt;
-	char	*input;
 	char	*in_comand;
 	char	**comand;
 }			t_pipex;
 
-char		*get_path(char *envp[], t_pipex *pipex);
-void		comand_one(t_pipex *pipex, char *argv[], char *envp[]);
-void		comand_two(t_pipex *pipex, char *argv[], char *envp[]);
-void ft_pipex(t_pipex *pipex, char *argv[], char *envp[]);
-void exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt);
+//main.c functions prototypes
+void	open_file(t_pipex *pipex, char *argv[], int argc);
+int		main(int argc, char *argv[], char *envp[]);
 
+//comands.c functions prototypes
+char	*path_lookup(char *envp[], t_pipex *pipex);
+void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt);
+void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[]);
+void	run_process(t_pipex *pipex, char *cmds[], char *envp[]);
+void	ft_pipex(t_pipex *pipex, char *cmds[], char *envp[]);
 
 #endif
