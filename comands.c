@@ -6,7 +6,7 @@
 /*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/04 01:13:34 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/04 01:46:44 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 	char	*path;
 
 	pipex->in_comand = argv[cnt + 1];
-	if(ft_strncmp(pipex->in_comand, "./", 2) == 0)
-		execve(pipex->in_comand, pipex->comand, envp);
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
 	{
