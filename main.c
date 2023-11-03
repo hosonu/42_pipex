@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/31 16:45:02 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/03 20:48:50 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char *argv[], char *envp[])
 	pipex = (t_pipex *)malloc(sizeof(t_pipex));
 	if (pipex == NULL)
 		return (0);
-	pipex->n = argc - 3;
+	pipex->pcnt = argc - 3;
 	open_file(pipex, argv);
 	if(pipe(pipex->pp) == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/31 16:58:01 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/03 21:03:07 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,33 @@ char	*get_path(char *envp[], t_pipex *pipex)
 // 	execve(path, pipex->comand, envp);
 // }
 
+
+// void ft_pipex(t_pipex *pipex, char *argv[], char *envp[])
+// {
+// 	int cnt;
+// 	cnt = 1;
+// 	if(pipe(pipex->pp) == -1)
+// 		exit(EXIT_FAILURE);
+// 	pipex->pid = fork();
+// 	if(pipex->pid == 0 && cnt == pipex->n)	
+// 	{
+// 		close(pipex->pp[1]);
+// 		dup2(pipex->pp[0], 0);
+// 		dup2(pipex->file_two, 1);
+// 		exec_cmd(pipex, argv, envp, cnt);
+// 	}
+// 	while (pipex->pid == 0 && cnt++ < pipex->n)
+// 	{
+// 		close(pipex->pp[0]);
+// 		dup2(pipex->pp[1], 1);
+// 		dup2(pipex->file_one, 0);
+// 		exec_cmd(pipex, argv, envp, cnt);
+// 	}
+// 	close(pipex->pp[0]);
+// 	close(pipex->pp[1]);
+// 	waitpid(pipex->pid, NULL, 0);
+// }
+
 void exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 {
 	char	*path;
@@ -95,34 +122,43 @@ void exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 	execve(path, pipex->comand, envp);	
 }
 
+void run_process(t_pipex *pipex, char *argv[], char *envp[])
+{
+	int i;
+	i = 0;
+	while(i < pipex->pcnt)
+	{
+		pipex->pid = fork();
+		if(pipex->pid == 0)
+		{
+			if(i == 0)
+			{
+				close(pipex->pp[0]);
+				dup2(pipex->pp[1], 1);
+				dup2(pipex->file_two, 0);
+			}
+			else if(i == pipex->pcnt - 1)
+			{
+				close(pipex->pp[0]);
+				dup2(pipex->pp[1], 1);
+				dup2(pipex->file_one, 0);
+				
+			} else {
+				dup2(pipex->pp[1], 1);
+				dup2(pipex->file_two, 0);
+			}
+			exec_cmd(pipex, argv, envp, pipex->pcnt);
+			exit(0);
+		}
+	}
+}
+
 void ft_pipex(t_pipex *pipex, char *argv[], char *envp[])
 {
 	int cnt;
 	cnt = 1;
 	if(pipe(pipex->pp) == -1)
-	{
-		perror("pipe");
 		exit(EXIT_FAILURE);
-	}
-	pipex->pid = fork();
-	if(pipex->pid == 0 && cnt == pipex->n)
-	{
-		puts("test1");
-		close(pipex->pp[1]);
-		dup2(pipex->pp[0], 0);
-		dup2(pipex->file_two, 1);
-		exec_cmd(pipex, argv, envp, cnt);
-	}
-	while (pipex->pid == 0 && cnt++ < pipex->n)
-	{
-		puts("test");
-		close(pipex->pp[0]);
-		dup2(pipex->pp[1], 1);
-		dup2(pipex->file_one, 0);
-		exec_cmd(pipex, argv, envp, cnt);
-
-	}
-	close(pipex->pp[0]);
-	close(pipex->pp[1]);
+	run_process(pipex, argv, envp);
 	waitpid(pipex->pid, NULL, 0);
 }

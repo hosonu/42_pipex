@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/10/31 16:37:46 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/03 20:48:58 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_pipex
 	int		pid2;
 	int		file_one;
 	int		file_two;
-	int 	n;
+	int 	pcnt;
 	char	*input;
 	char	*in_comand;
 	char	**comand;
