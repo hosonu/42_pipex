@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/04 18:32:23 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/04 18:36:17 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 {
 	char	*path;
 
-	pipex->in_comand = argv[cnt + 1];
+	pipex->in_comand = argv[cnt + 2];
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
 	{
@@ -67,13 +67,12 @@ void child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
 		close(pipex->pp[1]);
 		dup2(pipex->pp[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
-		
 	} else 
 	{
 		dup2(pipex->pp[0], STDIN_FILENO);//read from pipe
 		dup2(pipex->pp[1], STDOUT_FILENO);//write to pipe
 	}
-	exec_cmd(pipex, cmds, envp, i + 1);
+	exec_cmd(pipex, cmds, envp, i);
 }
 
 void run_process(t_pipex *pipex, char *cmds[], char *envp[])

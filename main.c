@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/04 01:31:47 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/04 18:39:27 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	pipex->pcnt = argc - 3;
 	open_file(pipex, argv, argc);
-	if(pipe(pipex->pp) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
 	ft_pipex(pipex, argv, envp);
 	free(pipex);
 	return (0);
