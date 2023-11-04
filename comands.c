@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/04 01:46:44 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/04 18:32:23 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
 		
 	} else 
 	{
-		dup2(pipex->pp[0], STDIN_FILENO);
-		dup2(pipex->pp[1], STDOUT_FILENO);
+		dup2(pipex->pp[0], STDIN_FILENO);//read from pipe
+		dup2(pipex->pp[1], STDOUT_FILENO);//write to pipe
 	}
 	exec_cmd(pipex, cmds, envp, i + 1);
 }
@@ -82,6 +82,11 @@ void run_process(t_pipex *pipex, char *cmds[], char *envp[])
 	i = 0;
 	while(i < pipex->pcnt)
 	{
+		if(pipe(pipex->pp) == -1)
+		{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+		}
 		pipex->pid = fork();
 		if(pipex->pid == 0)
 			child_process(pipex, i, cmds, envp);
@@ -96,13 +101,9 @@ void run_process(t_pipex *pipex, char *cmds[], char *envp[])
 
 void ft_pipex(t_pipex *pipex, char **cmds, char *envp[])
 {
-	if(pipe(pipex->pp) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
+	int status;
 	run_process(pipex, cmds, envp);
 	close(pipex->pp[0]);
 	close(pipex->pp[1]);
-	waitpid(pipex->pid, NULL, 0);
+	waitpid(pipex->pid, &status, 0);
 }
