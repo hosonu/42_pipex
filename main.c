@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/04 18:39:27 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/05 18:59:44 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_pipex	*pipex;
+	t_pipex	pipex;
 
 	if (argc < 5)
 	{
@@ -38,12 +38,8 @@ int	main(int argc, char *argv[], char *envp[])
 		perror("argc");
 		exit(EXIT_FAILURE);
 	}
-	pipex = (t_pipex *)malloc(sizeof(t_pipex));
-	if (pipex == NULL)
-		return (0);
-	pipex->pcnt = argc - 3;
-	open_file(pipex, argv, argc);
-	ft_pipex(pipex, argv, envp);
-	free(pipex);
+	pipex.pcnt = argc - 3;
+	open_file(&pipex, argv, argc);
+	ft_pipex(&pipex, argv, envp);
 	return (0);
 }
