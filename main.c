@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/05 18:59:44 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/14 13:42:19 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 	}
 }
 
+void here_doc(char *argv[])
+{
+	char	*line;
+	
+	line = NULL;
+	while (get_next_line(0, line) > 0)
+	{
+		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0)
+			break ;
+		free(line);
+	}
+	free(line);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
@@ -40,6 +54,8 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	pipex.pcnt = argc - 3;
 	open_file(&pipex, argv, argc);
+	// if(pipex.infile == 0)
+	// 	here_doc(argv);
 	ft_pipex(&pipex, argv, envp);
 	return (0);
 }

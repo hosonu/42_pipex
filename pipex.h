@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/05 19:20:06 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/08 10:41:24 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
+# include "get_next_line_bonus.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>

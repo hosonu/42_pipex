@@ -10,7 +10,9 @@ FILES = main.c comands.c \
 		libft/ft_strlcpy.c \
 		libft/ft_strlen.c \
 		libft/ft_substr.c \
-		libft/ft_strdup.c
+		libft/ft_strdup.c \
+		get_next_line_bonus.c \
+		get_next_line_utils_bonus.c
 SRCS = $(FILES)
 OBJS = $(SRCS:.c=.o)
 
