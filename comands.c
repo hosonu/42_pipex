@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/14 15:59:08 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/15 16:53:23 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 {
 	char	*path;
 
-	pipex->in_comand = argv[cnt + 2];
-	if (access(pipex->in_comand, X_OK) == 0 && argv[cnt + 2][0] == '.')
-		execve(pipex->in_comand, &pipex->in_comand, envp);
+	pipex->in_comand = argv[cnt + 2 + pipex->here_doc];
+	if ((argv[cnt + 2][0] == '.' || argv[cnt + 2][0] == '/'))
+	{
+		if (access(pipex->in_comand, X_OK) == 0)
+			execve(pipex->in_comand, &pipex->in_comand, envp);
+		perror("access");
+		exit(EXIT_FAILURE);
+	}
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
 	{
@@ -58,22 +63,18 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
 {
-	if (i == 0)
+	if (i == pipex->pcnt - 1)
 	{
-		close(pipex->pp[0]);
-		dup2(pipex->pp[1], STDOUT_FILENO);
-		dup2(pipex->infile, STDIN_FILENO);
-	}
-	else if (i == pipex->pcnt - 1)
-	{
-		close(pipex->pp[1]);
-		dup2(pipex->pp[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
+		close(pipex->pp[0]);
+		close(pipex->pp[1]);
+		close(pipex->outfile);
 	}
 	else
 	{
-		dup2(pipex->pp[0], STDIN_FILENO);
 		dup2(pipex->pp[1], STDOUT_FILENO);
+		close(pipex->pp[0]);
+		close(pipex->pp[1]);
 	}
 	exec_cmd(pipex, cmds, envp, i);
 }
@@ -83,37 +84,25 @@ void	run_process(t_pipex *pipex, char *cmds[], char *envp[])
 	int	i;
 
 	i = 0;
+	
 	while (i < pipex->pcnt)
 	{
-		if(i != pipex->pcnt - 1)
+		if (pipe(pipex->pp) == -1)
 		{
-			if (pipe(pipex->pp) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}	
+			perror("pipe");
+			exit(EXIT_FAILURE);
 		}
 		pipex->pid = fork();
-		if (pipex->pid == 0)
-			child_process(pipex, i, cmds, envp);
-		else if (pipex->pid < 0)
+		if (pipex->pid < 0)
 		{
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
-		else if(pipex->pid >0 && i != 0)
-		{
-			close(pipex->pp[0]);
-			close(pipex->pp[1]);
-		}
+		else if (pipex->pid == 0)
+			child_process(pipex, i, cmds, envp);
+		dup2(pipex->pp[0], STDIN_FILENO);
+		close(pipex->pp[1]);
+		close(pipex->pp[0]);
 		i++;
 	}
-}
-
-void	ft_pipex(t_pipex *pipex, char **cmds, char *envp[])
-{
-	run_process(pipex, cmds, envp);
-	// close(pipex->pp[0]);
-	// close(pipex->pp[1]);
-	waitpid(pipex->pid, NULL, 0);
 }

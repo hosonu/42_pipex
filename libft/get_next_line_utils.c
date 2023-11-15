@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:09:59 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/08 10:43:10 by hoyuki           ###   ########.fr       */
+/*   Created: 2023/10/03 12:45:20 by hosonu            #+#    #+#             */
+/*   Updated: 2023/11/15 16:26:47 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
-static size_t	ft_strlen(const char *str)
+static size_t	gnl_strlen(const char *str)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ static size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-char	*ft_strjoin_gnl(char *s1, char *s2, size_t j)
+char	*gnl_strjoin(char *s1, char *s2, size_t j)
 {
 	char	*str;
 	size_t	i;
@@ -34,7 +34,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2, size_t j)
 	if (!s1)
 		len = j;
 	else
-		len = ft_strlen(s1) + j;
+		len = gnl_strlen(s1) + j;
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -53,7 +53,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2, size_t j)
 	return (str);
 }
 
-char	*ft_strchr_gnl(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	char	*str;
 
@@ -112,13 +112,13 @@ char	*left_str(char *str)
 	}
 	while (str[i] && str[i] != '\n')
 		i++;
-	tmp = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	tmp = (char *)malloc(sizeof(char) * (gnl_strlen(str) - i + 1));
 	if (!tmp)
 		return (NULL);
 	j = 0;
 	i++;
 	len = i;
-	while (ft_strlen(str) > len && str[i])
+	while (gnl_strlen(str) > len && str[i])
 		tmp[j++] = str[i++];
 	tmp[j] = '\0';
 	free(str);

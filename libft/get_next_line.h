@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:10:23 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/08 10:43:00 by hoyuki           ###   ########.fr       */
+/*   Created: 2023/10/03 12:45:38 by hosonu            #+#    #+#             */
+/*   Updated: 2023/11/15 16:49:24 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -21,10 +20,15 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-char	*ft_strchr_gnl(char *s, int c);
-char	*ft_strjoin_gnl(char *s1, char *s2, size_t j);
-char	*get_line(char *str);
-char	*get_next_line(int fd, char *line);
-char	*left_str(char *str);
+// get_next_line.c
+char			*get_next_line(int fd);
+// static int		err_free(ssize_t i, char *str, char *buf);
+
+// get_next_line_utils.c
+// static size_t	gnl_strlen(const char *str);
+char			*gnl_strchr(char *s, int c);
+char			*gnl_strjoin(char *s1, char *s2, size_t j);
+char			*get_line(char *str);
+char			*left_str(char *str);
 
 #endif

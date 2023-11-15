@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:11:07 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/08 10:43:32 by hoyuki           ###   ########.fr       */
+/*   Created: 2023/10/03 12:46:50 by hosonu            #+#    #+#             */
+/*   Updated: 2023/11/15 16:27:05 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static int	err_free(ssize_t i, char *str, char *buf)
 {
@@ -23,31 +23,31 @@ static int	err_free(ssize_t i, char *str, char *buf)
 	return (1);
 }
 
-char	*get_next_line(int fd, char *line)
+char	*get_next_line(int fd)
 {
-	static char	*str[OPEN_MAX - _SC_OPEN_MAX];
-	// char		*line;
+	static char	*str = NULL;
+	char		*line;
 	char		*buf;
 	char		*tmp;
 	ssize_t		i;
 
-	if (fd < 0 || fd > (OPEN_MAX - _SC_OPEN_MAX) || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
 	i = 1;
-	while (!ft_strchr_gnl(str[fd], '\n') && i > 0)
+	while (!gnl_strchr(str, '\n') && i > 0)
 	{
 		i = read(fd, buf, BUFFER_SIZE);
-		if (!err_free(i, str[fd], buf))
+		if (!err_free(i, str, buf))
 			return (NULL);
-		tmp = ft_strjoin_gnl(str[fd], buf, i);
-		free(str[fd]);
-		str[fd] = tmp;
+		tmp = gnl_strjoin(str, buf, i);
+		free(str);
+		str = tmp;
 	}
 	free(buf);
-	line = get_line(str[fd]);
-	str[fd] = left_str(str[fd]);
+	line = get_line(str);
+	str = left_str(str);
 	return (line);
 }

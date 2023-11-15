@@ -2,7 +2,7 @@ NAME = pipex
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-FILES = main.c comands.c \
+FILES = pipex.c comands.c \
 		libft/ft_split.c \
 		libft/ft_strjoin.c \
 		libft/ft_strncmp.c \
@@ -11,8 +11,8 @@ FILES = main.c comands.c \
 		libft/ft_strlen.c \
 		libft/ft_substr.c \
 		libft/ft_strdup.c \
-		get_next_line_bonus.c \
-		get_next_line_utils_bonus.c
+		libft/get_next_line.c \
+		libft/get_next_line_utils.c 
 SRCS = $(FILES)
 OBJS = $(SRCS:.c=.o)
 
