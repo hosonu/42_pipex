@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/15 16:53:23 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:20:02 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	run_process(t_pipex *pipex, char *cmds[], char *envp[])
 
 	i = 0;
 	
+	dup2(pipex->infile, STDIN_FILENO);
 	while (i < pipex->pcnt)
 	{
 		if (pipe(pipex->pp) == -1)
