@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/16 17:51:03 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/16 20:20:24 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 		pipex->infile = open(argv[1], O_RDONLY);
 	if (pipex->infile == -1)
 	{
-		perror(argv[1]);
-		exit(EXIT_FAILURE);
+	// 	perror(argv[1]);
+	// 	exit(EXIT_FAILURE);
+		error_print(argv[1], errno, 0);
 	}
 	pipex->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (pipex->outfile == -1)
 	{
-		perror(argv[argc - 1]);
-		exit(EXIT_FAILURE);
+		// perror(argv[argc - 1]);
+		// exit(EXIT_FAILURE);
+		error_print(argv[argc - 1], errno, 0);
 	}
 }
 
@@ -57,8 +59,9 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc < 5)
 	{
 		errno = EINVAL;
-		perror("argc");
-		exit(EXIT_FAILURE);
+		error_print("argc", EINVAL, 0);
+		// perror("argc");
+		// exit(EXIT_FAILURE);
 	}
 	pipex.here_doc = 0;
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
@@ -70,9 +73,3 @@ int	main(int argc, char *argv[], char *envp[])
 		unlink("tmpfile");
 	return (0);
 }
-
-//error handling
-//add func for error messega & exit
-//output "comand not found"
-//output "permission denied"
-//output "no such file or directory"

@@ -1,8 +1,8 @@
 NAME = pipex
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
-FILES = pipex.c comands.c \
+FILES = pipex.c comands.c error.c\
 		libft/ft_split.c \
 		libft/ft_strjoin.c \
 		libft/ft_strncmp.c \

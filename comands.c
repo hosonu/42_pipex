@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/15 17:29:31 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/16 20:30:04 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 	if ((argv[cnt + 2][0] == '.' || argv[cnt + 2][0] == '/'))
 	{
 		if (access(pipex->in_comand, X_OK) == 0)
+		{
 			execve(pipex->in_comand, &pipex->in_comand, envp);
-		perror("access");
-		exit(EXIT_FAILURE);
+			error_print("access", EXIT_FAILURE, 0);
+		}
+		else
+			error_print("access", EXIT_FAILURE, 1);
 	}
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
-	{
-		perror("path");
-		exit(0);
-	}
+		error_print("zsh", EXIT_FAILURE, 1);
 	execve(path, pipex->comand, envp);
+	error_print("execve", EXIT_FAILURE, 0);
 }
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
@@ -88,16 +89,10 @@ void	run_process(t_pipex *pipex, char *cmds[], char *envp[])
 	while (i < pipex->pcnt)
 	{
 		if (pipe(pipex->pp) == -1)
-		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
-		}
+			error_print("pipe", EXIT_FAILURE, 0);
 		pipex->pid = fork();
 		if (pipex->pid < 0)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
+			error_print("fork", EXIT_FAILURE, 0);
 		else if (pipex->pid == 0)
 			child_process(pipex, i, cmds, envp);
 		dup2(pipex->pp[0], STDIN_FILENO);

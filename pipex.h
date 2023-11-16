@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/15 16:47:18 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/16 20:17:33 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ char		*path_lookup(char *envp[], t_pipex *pipex);
 void		exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt);
 void		child_process(t_pipex *pipex, int i, char *cmds[], char *envp[]);
 void		run_process(t_pipex *pipex, char *cmds[], char *envp[]);
+
+// error.c functions prototypes
+void		error_print(char *message, int ernum, bool status);
 
 #endif
