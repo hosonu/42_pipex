@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/16 20:46:22 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/17 00:57:20 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 		if (access(pipex->in_comand, X_OK) == 0)
 		{
 			execve(pipex->in_comand, &pipex->in_comand, envp);
-			error_print("access", EXIT_FAILURE, 0);
+			error_print("access", errno, 0);
 		}
 		else
-			error_print(NULL, EXIT_FAILURE, 1);
+			error_print("zsh", errno, 0);
 	}
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
-		error_print("zsh", EXIT_FAILURE, 1);
+		error_print(NULL, EXIT_FAILURE, 1);
 	execve(path, pipex->comand, envp);
-	error_print("execve", EXIT_FAILURE, 0);
+	error_print("execve", errno, 0);
 }
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
