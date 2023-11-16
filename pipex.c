@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/15 17:26:24 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:51:03 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 {
 	if (pipex->here_doc == 1)
 		pipex->infile = open("tmpfile", O_RDONLY);
-	else
-		pipex->infile = open(argv[2], O_RDONLY);
+	else if (pipex->here_doc == 0)
+		pipex->infile = open(argv[1], O_RDONLY);
 	if (pipex->infile == -1)
 	{
 		perror(argv[1]);
@@ -72,6 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 //error handling
+//add func for error messega & exit
 //output "comand not found"
 //output "permission denied"
 //output "no such file or directory"
