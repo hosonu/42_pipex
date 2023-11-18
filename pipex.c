@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/18 17:26:50 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/18 17:59:15 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	here_doc(char *argv[], t_pipex *pipex)
 			free(line);
 			error_print("get_next_line", 0, 0);
 		}
-		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0)
+		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0
+			&& ft_strlen(line) - 1 == ft_strlen(argv[2]))
 		{
 			pipex->here_doc = 1;
 			free(line);
@@ -59,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc < 5)
 		error_print("argc", EINVAL, 1);
 	pipex.here_doc = 0;
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
 		here_doc(argv, &pipex);
 	open_file(&pipex, argv, argc);
 	pipex.pcnt = argc - 3 - pipex.here_doc;
