@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/17 00:57:20 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/18 17:26:36 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char	*do_join(char *path, char *comand)
+{
+	path = ft_strjoin(path, "/");
+	if (path == NULL)
+		error_print("malloc", 0, 0);
+	path = ft_strjoin(path, comand);
+	if (path == NULL)
+		error_print("malloc", 0, 0);
+	return (path);
+}
 
 char	*path_lookup(char *envp[], t_pipex *pipex)
 {
@@ -27,8 +38,7 @@ char	*path_lookup(char *envp[], t_pipex *pipex)
 			i = 0;
 			while (path[i] != NULL)
 			{
-				path[i] = ft_strjoin(path[i], "/");
-				path[i] = ft_strjoin(path[i], pipex->comand[0]);
+				path[i] = do_join(path[i], pipex->comand[0]);
 				if (access(path[i], X_OK) == 0)
 					return (path[i]);
 				free(path[i]);
@@ -50,16 +60,16 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 		if (access(pipex->in_comand, X_OK) == 0)
 		{
 			execve(pipex->in_comand, &pipex->in_comand, envp);
-			error_print("access", errno, 0);
+			error_print("exceve", 0, 0);
 		}
 		else
-			error_print("zsh", errno, 0);
+			error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 	}
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
-		error_print(NULL, EXIT_FAILURE, 1);
+		error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 	execve(path, pipex->comand, envp);
-	error_print("execve", errno, 0);
+	error_print("execve", 0, 0);
 }
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
@@ -89,10 +99,10 @@ void	run_process(t_pipex *pipex, char *cmds[], char *envp[])
 	while (i < pipex->pcnt)
 	{
 		if (pipe(pipex->pp) == -1)
-			error_print("pipe", errno, 0);
+			error_print("pipe", 0, 0);
 		pipex->pid = fork();
 		if (pipex->pid < 0)
-			error_print("fork", errno, 0);
+			error_print("fork", 0, 0);
 		else if (pipex->pid == 0)
 			child_process(pipex, i, cmds, envp);
 		dup2(pipex->pp[0], STDIN_FILENO);
