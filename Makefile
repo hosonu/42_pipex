@@ -2,7 +2,8 @@ NAME = pipex
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = pipex.c comands.c error.c\
+FILES = pipex.c comands.c pipex_utils.c\
+		libft/ft_putstr_fd.c \
 		libft/ft_split.c \
 		libft/ft_strjoin.c \
 		libft/ft_strncmp.c \

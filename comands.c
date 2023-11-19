@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/18 17:54:31 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/19 19:01:32 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 			error_print("exceve", 0, 0);
 		}
 		else
-			error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
+			error_print(pipex->in_comand, 0, 0);
 	}
 	path = path_lookup(envp, pipex);
 	if (path == NULL)
 		error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 	execve(path, pipex->comand, envp);
-	error_print("execve", 0, 0);
+	error_print("execve", COMAND_NOT_FOUND, 0);
 }
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/18 17:28:22 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/19 19:38:03 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 # define COMAND_NOT_FOUND -1
@@ -32,11 +33,13 @@ typedef struct s_pipex
 	int		outfile;
 	int		pcnt;
 	bool	here_doc;
+	bool	is_invalid;
 	char	*in_comand;
 	char	**comand;
 }			t_pipex;
 
 // main.c functions prototypes
+void		here_doc(char *argv[], t_pipex *pipex, char *envp[]);
 void		open_file(t_pipex *pipex, char *argv[], int argc);
 int			main(int argc, char *argv[], char *envp[]);
 
@@ -49,5 +52,6 @@ void		run_process(t_pipex *pipex, char *cmds[], char *envp[]);
 
 // error.c functions prototypes
 void	error_print(char *message, int ernum, bool use_errno);
+bool	expand_envp(char *line, char *envp[], int infile);
 
 #endif
