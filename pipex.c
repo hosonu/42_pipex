@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/20 00:44:20 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/20 16:38:10 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	here_doc(char *argv[], t_pipex *pipex, char *envp[])
 			free(line);
 			break ;
 		}
-		if(expand_envp(line, envp, pipex->infile) == 0)
+		if (expand_envp(line, envp, pipex->infile) == 0)
 			write(pipex->infile, line, ft_strlen(line));
 		free(line);
 	}
@@ -50,8 +50,9 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 		pipex->is_invalid = 1;
 		perror(argv[1]);
 	}
-	if(pipex->here_doc == 1)
-		pipex->outfile = open(argv[argc - 1], O_APPEND | O_CREAT | O_RDWR, 0644);
+	if (pipex->here_doc == 1)
+		pipex->outfile = open(argv[argc - 1], O_APPEND | O_CREAT | O_RDWR,
+				0644);
 	else if (pipex->here_doc == 0)
 		pipex->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (pipex->outfile == -1)
@@ -71,7 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
 		here_doc(argv, &pipex, envp);
 	open_file(&pipex, argv, argc);
-	if(pipex.is_invalid == 1)
+	if (pipex.is_invalid == 1)
 		exit(EXIT_FAILURE);
 	pipex.pcnt = argc - 3 - pipex.here_doc;
 	run_process(&pipex, argv, envp);
