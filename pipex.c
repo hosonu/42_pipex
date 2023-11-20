@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/20 16:38:10 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/20 17:04:12 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	here_doc(char *argv[], t_pipex *pipex, char *envp[])
 		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0
 			&& ft_strlen(line) - 1 == ft_strlen(argv[2]))
 		{
-			pipex->here_doc = 1;
 			free(line);
 			break ;
 		}
@@ -57,6 +56,8 @@ void	open_file(t_pipex *pipex, char *argv[], int argc)
 		pipex->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (pipex->outfile == -1)
 		error_print(argv[argc - 1], 0, 0);
+	if (pipex->is_invalid == 1)
+		exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -65,15 +66,17 @@ int	main(int argc, char *argv[], char *envp[])
 	int		i;
 
 	i = 0;
-	if (argc < 5)
-		error_print("argc", EINVAL, 1);
 	pipex.here_doc = 0;
 	pipex.is_invalid = 0;
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
+		pipex.here_doc = 1;
+	if (argc < 6 && pipex.here_doc == 1)
+		error_print("argc", EINVAL, 1);
+	else if (argc < 5)
+		error_print("argc", EINVAL, 1);
+	if (pipex.here_doc == 1)
 		here_doc(argv, &pipex, envp);
 	open_file(&pipex, argv, argc);
-	if (pipex.is_invalid == 1)
-		exit(EXIT_FAILURE);
 	pipex.pcnt = argc - 3 - pipex.here_doc;
 	run_process(&pipex, argv, envp);
 	if (pipex.here_doc == 1)
