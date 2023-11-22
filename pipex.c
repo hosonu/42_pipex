@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/20 17:04:12 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/22 12:29:46 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	main(int argc, char *argv[], char *envp[])
 	i = 0;
 	pipex.here_doc = 0;
 	pipex.is_invalid = 0;
+	if (argc < 5)
+		error_print("argc", EINVAL, 1);
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
 		pipex.here_doc = 1;
 	if (argc < 6 && pipex.here_doc == 1)
-		error_print("argc", EINVAL, 1);
-	else if (argc < 5)
 		error_print("argc", EINVAL, 1);
 	if (pipex.here_doc == 1)
 		here_doc(argv, &pipex, envp);

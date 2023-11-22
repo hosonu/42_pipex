@@ -6,7 +6,7 @@
 /*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/20 16:38:26 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/22 20:18:25 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void		run_process(t_pipex *pipex, char *cmds[], char *envp[]);
 
 // pipex_utils.c functions prototypes
 void		error_print(char *message, int ernum, bool use_errno);
-bool		expand_envp(char *line, char *envp[], int infile);
+// bool		expand_envp(char *line, char *envp[], int infile);
 
 #endif

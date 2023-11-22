@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comands.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 10:22:10 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/20 00:43:46 by hosonu           ###   ########.fr       */
+/*   Updated: 2023/11/22 20:18:01 by hoyuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 	char	*path;
 
 	pipex->in_comand = argv[cnt + 2 + pipex->here_doc];
-	if ((argv[cnt + 2][0] == '.' || argv[cnt + 2][0] == '/'))
+	if ((pipex->in_comand[0] == '.' || pipex->in_comand[0] == '/'))
 	{
-		if (access(pipex->in_comand, X_OK) == 0)
+		pipex->comand = ft_split(pipex->in_comand, ' ');
+		if (access(pipex->comand[0], X_OK) == 0)
 		{
-			execve(pipex->in_comand, &pipex->in_comand, envp);
-			error_print("exceve", 0, 0);
+			execve(pipex->comand[0], pipex->comand, envp);
+			error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 		}
 		else
 			error_print(pipex->in_comand, 0, 0);
@@ -69,7 +70,7 @@ void	exec_cmd(t_pipex *pipex, char *argv[], char *envp[], int cnt)
 	if (path == NULL)
 		error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 	execve(path, pipex->comand, envp);
-	error_print("execve", COMAND_NOT_FOUND, 0);
+	error_print(pipex->in_comand, COMAND_NOT_FOUND, 0);
 }
 
 void	child_process(t_pipex *pipex, int i, char *cmds[], char *envp[])
