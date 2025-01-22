@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:04:30 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/22 12:29:46 by hoyuki           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:09:05 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	here_doc(char *argv[], t_pipex *pipex, char *envp[])
+void	here_doc(char *argv[], t_pipex *pipex)
 {
 	char	*line;
 
@@ -24,7 +24,8 @@ void	here_doc(char *argv[], t_pipex *pipex, char *envp[])
 		{
 			close(pipex->infile);
 			free(line);
-			error_print("get_next_line", 0, 0);
+			// error_print("get_next_line", 0, 0);
+			break;
 		}
 		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0
 			&& ft_strlen(line) - 1 == ft_strlen(argv[2]))
@@ -32,8 +33,8 @@ void	here_doc(char *argv[], t_pipex *pipex, char *envp[])
 			free(line);
 			break ;
 		}
-		if (expand_envp(line, envp, pipex->infile) == 0)
-			write(pipex->infile, line, ft_strlen(line));
+		// if (expand_envp(line, envp, pipex->infile) == 0)
+		write(pipex->infile, line, ft_strlen(line));
 		free(line);
 	}
 }
@@ -75,7 +76,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc < 6 && pipex.here_doc == 1)
 		error_print("argc", EINVAL, 1);
 	if (pipex.here_doc == 1)
-		here_doc(argv, &pipex, envp);
+		here_doc(argv, &pipex);
 	open_file(&pipex, argv, argc);
 	pipex.pcnt = argc - 3 - pipex.here_doc;
 	run_process(&pipex, argv, envp);

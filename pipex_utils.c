@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:33:58 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/22 20:16:40 by hoyuki           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:08:33 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,24 @@ void	error_print(char *message, int ernum, bool use_errno)
 	}
 }
 
-// bool	expand_envp(char *line, char *envp[], int infile)
-// {
-// 	int	i;
+bool	expand_envp(char *line, char *envp[], int infile)
+{
+	int	i;
 
-// 	if (line[0] == '$')
-// 	{
-// 		i = 0;
-// 		while (envp[i])
-// 		{
-// 			if (ft_strncmp(envp[i], line + 1, ft_strlen(line) - 2) == 0)
-// 			{
-// 				ft_putstr_fd(envp[i] + ft_strlen(line) - 1, infile);
-// 				write(infile, "\n", 1);
-// 				return (1);
-// 			}
-// 			i++;
-// 		}
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+	if (line[0] == '$')
+	{
+		i = 0;
+		while (envp[i])
+		{
+			if (ft_strncmp(envp[i], line + 1, ft_strlen(line) - 2) == 0)
+			{
+				ft_putstr_fd(envp[i] + ft_strlen(line) - 1, infile);
+				write(infile, "\n", 1);
+				return (true);
+			}
+			i++;
+		}
+		return (true);
+	}
+	return (false);
+}

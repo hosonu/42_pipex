@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoyuki <hoyuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hosonu <hosonu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:01:16 by hosonu            #+#    #+#             */
-/*   Updated: 2023/11/22 20:18:25 by hoyuki           ###   ########.fr       */
+/*   Updated: 2023/11/29 16:45:17 by hosonu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pipex
 }			t_pipex;
 
 // main.c functions prototypes
-void		here_doc(char *argv[], t_pipex *pipex, char *envp[]);
+void		here_doc(char *argv[], t_pipex *pipex);
 void		open_file(t_pipex *pipex, char *argv[], int argc);
 int			main(int argc, char *argv[], char *envp[]);
 
